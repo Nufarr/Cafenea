@@ -56,4 +56,6 @@ public class Persoana {
         this.telefon = telefon;
     }
 
+
+
 }

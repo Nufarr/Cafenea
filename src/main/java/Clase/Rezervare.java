@@ -32,7 +32,12 @@ public class Rezervare {
         System.out.println("Ora Rezervare: " + oraRezervare);
     }
     
-    public void pickupRezervare() {}
-    public void actualizareOra() {}
-    public void anuleazaRezervare() {}
+    public void pickupRezervare() {
+        System.out.println("Rezervarea " + numeRezervare + " a fost ridicată la ora " + oraRezervare);
+    }
+    public void actualizareOra(String ora) {
+        this.oraRezervare = ora;
+        System.out.println("Ora rezervării a fost actualizată la: " + oraRezervare);
+    }
+    
 }

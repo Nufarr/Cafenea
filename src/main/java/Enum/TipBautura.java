@@ -5,5 +5,7 @@ public enum TipBautura {
     Ceai,
     Suc,
     Cicolata_Calda,
-    Apa;
+    Apa,
+    Limonada,
+    Smoothie;
 }

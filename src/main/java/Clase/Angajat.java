@@ -46,11 +46,13 @@ public class Angajat extends Persoana{
     }
 
     public void afisareAngajati() {
+        super.afisare();
         System.out.println("Angajat:");
         System.out.println("Functie: " + functie);
         System.out.println("Salariu: " + salariu);
         System.out.println("Ore pe saptamana: " + numarOreSapt);
     }
+
 
     // 1. Preluarea comenzii de la un client
     // public void preluareComanda(Client client, Comanda comanda) {

@@ -6,11 +6,15 @@ import java.util.List;
 public class Client extends Persoana {
     private int numarComanda;
     private List<String> istoricComenzi;
+    private List<Oferte> oferte;  // Lista de oferte
+    private List<Rezervare> rezervari;  // Lista de rezervări
 
     public Client(String nume, String prenume, String email, String telefon) {
         super(nume, prenume, email, telefon);
         this.numarComanda = 0;
         this.istoricComenzi = new ArrayList<>();
+        this.oferte = new ArrayList<>(); 
+        this.rezervari= new ArrayList<>(); // Initializare lista de oferte
     }
     public int getNumarComanda() {
         return numarComanda;
@@ -27,6 +31,47 @@ public class Client extends Persoana {
     public void setIstoricComenzi(List<String> istoricComenzi) {
         this.istoricComenzi = istoricComenzi;
     }
+
+    public void creeazaRezervare(String oraRezervare) {
+        Rezervare rezervare = new Rezervare(nume + " " + prenume, oraRezervare);
+        rezervari.add(rezervare);
+        System.out.println("Rezervarea a fost creată cu succes.");
+    }
+
+    public void afiseazaRezervare() {
+        if (rezervari.isEmpty()) {
+            System.out.println("Nu aveți rezervări.");
+        } else {
+            System.out.println("Rezervările disponibile:");
+            for (Rezervare rezervare : rezervari) {
+                rezervare.afisare();
+            }
+        }
+    }
+
+
+// Metode pentru gestionarea ofertelor
+    public void adaugaOferta(Oferte oferta) {
+        this.oferte.add(oferta);
+        System.out.println("Oferta adăugată cu succes.");
+    }
+
+    public void afiseazaOferte() {
+        if (oferte.isEmpty()) {
+            System.out.println("Nu aveți oferte disponibile.");
+        } else {
+            System.out.println("Ofertele disponibile:");
+            for (Oferte oferta : oferte) {
+                oferta.afisare();
+            }
+        }
+    }
+
+
+
+
+
+
     public void creareCont() {
         System.out.println("Cont creat pentru clientul: " + prenume + " " + nume);
     }
@@ -53,6 +98,15 @@ public class Client extends Persoana {
             for (String comanda : istoricComenzi) {
                 System.out.println(comanda);
             }
+        }
+    }
+
+    public void anuleazaRezervare() {
+        if (rezervari.isEmpty()) {
+            System.out.println("Nu exista rezervari de anulat.");
+        } else {
+            System.out.println("Rezervarea a fost anulata.");
+            rezervari.remove(rezervari.size() - 1); // Anuleaza ultima rezervare
         }
     }
 }
