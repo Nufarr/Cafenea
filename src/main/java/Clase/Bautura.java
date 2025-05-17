@@ -6,17 +6,20 @@ import Enum.TipMarime;
 public class Bautura {
     private TipBautura tipBautura;
     private TipMarime marime;
+    private int stoc;
     private int pret;
 
     public Bautura() {
         this.tipBautura = null;
         this.marime = null;
         this.pret = 0;
+        this.stoc = 0;
     }
 
-    public Bautura(TipBautura tipBautura, TipMarime marime) {
+    public Bautura(TipBautura tipBautura, TipMarime marime, int stoc) {
         this.tipBautura = tipBautura;
         this.marime = marime;
+        this.stoc = stoc;
         setPret();
     }
 
@@ -109,6 +112,17 @@ public class Bautura {
         System.out.println("Tip Bautura: " + tipBautura);
         System.out.println("Marime: " + marime);
         System.out.println("Pret Bautura: " + pret);
+        System.out.println("Stoc Bautura: " + stoc);
+    }
+
+
+    public void scadeStoc(int cantitate) {
+        if (stoc >= cantitate) {
+            stoc -= cantitate;
+            System.out.println("Stoc actualizat. Cantitate rămasă: " + stoc);
+        } else {
+            System.out.println("Stoc insuficient! Nu se poate procesa comanda.");
+        }
     }
 
     public TipBautura adaugaBautura() {return tipBautura;}

@@ -1,11 +1,14 @@
 package Clase;
 
-import Enum.StatusComanda;
-import Enum.StatusOferta;
 import java.util.ArrayList;
 import java.util.List;
 
+import Enum.StatusComanda;
+import Enum.StatusOferta;
+
 public class Comanda {
+    private static int contorIdComanda = 0;
+    private int idComanda; // ID-ul comenzii
     private String oraRidicare;
     private StatusComanda status;
     private int pretTotal;
@@ -13,16 +16,27 @@ public class Comanda {
 
 
     public Comanda() {
-        oraRidicare = "";
-        status = StatusComanda.In_Asteptare;
-        pretTotal = 0;
+        contorIdComanda++;
+        this.idComanda=contorIdComanda;
+        this.oraRidicare = "";
+        this.status = StatusComanda.In_Asteptare;
+        this.pretTotal = 0;
+        this.bauturi=new ArrayList<>();
     }
 
     public Comanda(String oraRidicare, StatusComanda status) {
+        contorIdComanda++;  // Incrementăm contorul de fiecare dată când creăm o comandă
+        this.idComanda = contorIdComanda;  // Atribuim un ID unic comenzii
         this.oraRidicare = oraRidicare;
         this.status = status;
-        this.bauturi= new ArrayList<>();
+        this.pretTotal = 0;
+        this.bauturi = new ArrayList<>();
     }
+
+    public int getIdComanda() {
+        return idComanda;
+    }
+
 
     public String getOraRidicare() {
         return oraRidicare;
@@ -61,6 +75,7 @@ public class Comanda {
         System.out.println("Statusul comenzii: " + status);
         afisareBauturi();  // Afișează băuturile comenzii
         System.out.println("Total plata: " + pretTotal);
+        System.out.println();
     }
 
     public void anuleazaComanda() {
@@ -94,5 +109,4 @@ public class Comanda {
         pretTotal = pretInitial;
         System.out.println("Oferta a fost eliminată și prețul a fost restaurat la " + pretTotal);
     }
-    
 }

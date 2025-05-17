@@ -17,6 +17,7 @@ public class Persoana {
 
     
     public void afisare() {
+        System.out.println();
         System.out.println("Nume: " + nume);
         System.out.println("Prenume: " + prenume);
         System.out.println("Email: " + email);

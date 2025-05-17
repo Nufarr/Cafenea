@@ -1,5 +1,4 @@
 package Clase;
-
 import java.util.ArrayList;
 
 public class Client extends Persoana {
@@ -77,9 +76,8 @@ public class Client extends Persoana {
 
     public void plaseazaComanda(Comanda comanda) {
         numarComanda++;
-        comanda.setIdComanda(numarComanda);
         istoricComenzi.add(comanda);
-        System.out.println("Comanda plasata cu succes.");
+        System.out.println("Comanda plasata cu succes pentru client-ul " + this.nume);
     }
 
     public void ridicaComanda() {

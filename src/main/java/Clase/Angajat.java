@@ -1,6 +1,7 @@
 package Clase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Enum.StatusComanda;
 import Enum.TipFunctie;
@@ -51,6 +52,10 @@ public class Angajat extends Persoana{
         this.functie = functie;
     }
 
+    public ArrayList<Comanda> getComenziGestionate() {
+        return comenziGestionate;
+    }
+
     public void afisareAngajati() {
         super.afisare();
         System.out.println("Angajat:");
@@ -66,28 +71,24 @@ public class Angajat extends Persoana{
         System.out.println("Comanda #" + comanda.getIdComanda() + " a fost preluata de " + functie + ".");
     }
 
-    // // 2. Încasarea sumei
-    // public void incasareSuma(Client client, double suma) {
-    //     // logica de plată simplificată
-    //     System.out.println("Angajatul " + functie + " a încasat suma de " + suma + " RON de la clientul " + client.getNume() + ".");
-    //     client.notifica("Plata de " + suma + " RON a fost înregistrată.");
-    // }
+
 
     // 3. Pregătirea comenzii
-    public void pregatireComanda(Comanda comanda) {
-        // Modifică statusul comenzii la "In_Preparare"
-        comanda.setStatus(StatusComanda.In_Pregatire);
-        System.out.println("Comanda #" + comanda.getIdComanda() + " este în pregătire.");
+    public void pregatireComanda() {
+        // Sortăm comenzile direct în funcția de pregătire pe baza orei de ridicare
+        Collections.sort(comenziGestionate, (comanda1, comanda2) -> comanda1.getOraRidicare().compareTo(comanda2.getOraRidicare()));
 
-        // Simulăm pregătirea comenzii
-        try {
-            Thread.sleep(2000);  // Întârziere de 2 secunde pentru a simula timpul de pregătire
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        // Procesăm comenzile în ordinea corectă
+        for (Comanda comanda : comenziGestionate) {
+            comanda.setStatus(StatusComanda.In_Pregatire);
+            System.out.println("Comanda #" + comanda.getIdComanda() + " este în pregătire.");
+            try {
+                Thread.sleep(2000);  // Simulăm pregătirea comenzii
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            comanda.finalizeazaComanda();
         }
-
-        // După pregătirea comenzii, schimbăm statusul la "Finalizata"
-        comanda.finalizeazaComanda();
     }
     
 }
