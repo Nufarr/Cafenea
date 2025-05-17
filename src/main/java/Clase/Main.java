@@ -117,10 +117,11 @@ public class Main {
                         }
                     }
                 case "2":
-                    //TODO:
+                    //TODO: pt angajat
                     break;
 
                 case "3":
+                    //TODO: pt manager
                     break;
 
                 case "0":
