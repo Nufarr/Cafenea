@@ -44,6 +44,13 @@ public class Client extends Persoana {
         this.istoricComenzi = istoricComenzi;
     }
 
+    public ArrayList<Oferte> getOferte() {
+        return oferte;
+    }
+    public void setOferte(ArrayList<Oferte> oferte) {
+        this.oferte = oferte;
+    }
+
     public void creeazaRezervare(String oraRezervare) {
         Rezervare rezervare = new Rezervare(nume + " " + prenume, oraRezervare);
         rezervari.add(rezervare);
@@ -73,7 +80,10 @@ public class Client extends Persoana {
             System.out.println("Nu aveți oferte disponibile.");
         } else {
             System.out.println("Ofertele disponibile:");
+            int i = 0;
             for (Oferte oferta : oferte) {
+                i++;
+                System.out.print(i + ". ");
                 oferta.afisare();
             }
         }

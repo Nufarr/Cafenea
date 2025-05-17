@@ -116,6 +116,10 @@ public class Bautura {
     
 
     public void afisare() {
+        System.out.println(tipBautura + " - " + marime + " - " + pret + "lei");
+    }
+
+    public void afisareStoc() {
         System.out.println("Tip Bautura: " + tipBautura);
         System.out.println("Marime: " + marime);
         System.out.println("Pret Bautura: " + pret);
@@ -132,6 +136,6 @@ public class Bautura {
         }
     }
 
-    public TipBautura adaugaBautura() {return tipBautura;}
-    public TipBautura stergeBautura() {return tipBautura;}
+//    public TipBautura adaugaBautura() {return tipBautura;}
+//    public TipBautura stergeBautura() {return tipBautura;}
 }

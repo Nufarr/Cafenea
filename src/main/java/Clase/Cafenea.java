@@ -77,6 +77,9 @@ public class Cafenea {
 
     //TESTAT!
     public boolean esteDeschisaAcum(String ora) { // ora in format 07:00 - 21:00
+        if (ora == null || !ora.matches("^\\d{2}:\\d{2}$")) {
+            return false; // ora invalidă
+        }
         if(Integer.parseInt(ora.substring(0, 2)) < Integer.parseInt(program.substring(0, 2))){
             return false; //ora mai mica decat ora de deschidere
         } else if(Integer.parseInt(ora.substring(0, 2)) > Integer.parseInt(program.substring(6, 8)) ){

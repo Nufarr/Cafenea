@@ -12,9 +12,10 @@ public class Comanda {
     private String oraRidicare;
     private StatusComanda status;
     private int pretTotal;
-    private List<Bautura> bauturi;  // Lista de băuturi
+    private ArrayList<Bautura> bauturi;  // Lista de băuturi
     private Client client;
     private Angajat angajat;
+    private Oferte oferta;
 
     public Comanda() {
         contorIdComanda++;
@@ -50,6 +51,9 @@ public class Comanda {
     public void setAngajat(Angajat angajat) {
         this.angajat = angajat;
     }
+    public ArrayList<Bautura> getBauturi() {
+        return bauturi;
+    }
 
     public String getOraRidicare() {
         return oraRidicare;
@@ -66,7 +70,6 @@ public class Comanda {
 
     // Metoda pentru adăugarea unei băuturi
     public void adaugaProdus(Bautura bautura) {
-
         pretTotal = pretTotal + bautura.getPret();
         this.bauturi.add(bautura);
     }
@@ -80,7 +83,7 @@ public class Comanda {
     public void afisareBauturi() {
         System.out.println("Băuturi în comandă:");
         for (Bautura b : bauturi) {
-            System.out.println(b.adaugaBautura());
+            b.afisare();
         }
     }
     // Metoda de afișare a detaliilor comenzii
@@ -88,6 +91,8 @@ public class Comanda {
         System.out.println("Ora ridicării comenzii: " + oraRidicare);
         System.out.println("Statusul comenzii: " + status);
         afisareBauturi();  // Afișează băuturile comenzii
+        if(oferta != null)
+            System.out.println("Discount: " + oferta.getDiscount());
         System.out.println("Total plata: " + pretTotal);
         System.out.println();
     }
@@ -106,6 +111,7 @@ public class Comanda {
 
     // Metoda pentru a aplica oferta
     public void aplicaOferta(Oferte oferta) {
+        this.oferta = oferta;
         if (oferta != null && oferta.getStatus() == StatusOferta.Acceptata) {  // Verificăm dacă oferta este acceptată
             int discount = oferta.getDiscount(); // Discountul oferit
             int valoareDiscount = (pretTotal * discount) / 100;  // Calculăm reducerea
@@ -116,6 +122,7 @@ public class Comanda {
         }
     }
     public void eliminaOferta(Oferte oferta) {
+        this.oferta = null;
         int pretInitial = 0;
         for (Bautura b : bauturi) {
             pretInitial += b.getPret();  // Calculăm prețul inițial al băuturilor
