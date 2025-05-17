@@ -16,10 +16,9 @@ public class Bautura {
         this.stoc = 0;
     }
 
-    public Bautura(TipBautura tipBautura, TipMarime marime, int stoc) {
+    public Bautura(TipBautura tipBautura, TipMarime marime) {
         this.tipBautura = tipBautura;
         this.marime = marime;
-        this.stoc = stoc;
         setPret();
     }
 
@@ -43,6 +42,7 @@ public class Bautura {
     }
     public void setPret() {
         if (tipBautura == TipBautura.Cafea) {
+            this.stoc = 30;
             if (marime == TipMarime.Mica) {
                 this.pret = 10;
             } else if (marime == TipMarime.Medie) {
@@ -51,6 +51,7 @@ public class Bautura {
                 this.pret = 20;
             }
         } else if (tipBautura == TipBautura.Ceai) {
+            this.stoc = 40;
             if (marime == TipMarime.Mica) {
                 this.pret = 8;
             } else if (marime == TipMarime.Medie) {
@@ -59,6 +60,7 @@ public class Bautura {
                 this.pret = 16;
             }
         } else if (tipBautura == TipBautura.Suc) {
+            this.stoc = 50;
             if (marime == TipMarime.Mica) {
                 this.pret = 5;
             } else if (marime == TipMarime.Medie) {
@@ -67,6 +69,7 @@ public class Bautura {
                 this.pret = 10;
             }
         } else if (tipBautura == TipBautura.Cicolata_Calda) {
+            this.stoc = 15;
             if (marime == TipMarime.Mica) {
                 this.pret = 12;
             } else if (marime == TipMarime.Medie) {
@@ -76,6 +79,7 @@ public class Bautura {
             }
         }
         else if (tipBautura == TipBautura.Apa) {
+            this.stoc = 50;
             if (marime == TipMarime.Mica) {
                 this.pret = 3;
             } else if (marime == TipMarime.Medie) {
@@ -85,6 +89,7 @@ public class Bautura {
             }
         }
         else if (tipBautura == TipBautura.Limonada) {
+            this.stoc = 30;
             if (marime == TipMarime.Mica) {
                 this.pret = 7;
             } else if (marime == TipMarime.Medie) {
@@ -94,6 +99,7 @@ public class Bautura {
             }
         }
         else if (tipBautura == TipBautura.Smoothie) {
+            this.stoc = 3;
             if (marime == TipMarime.Mica) {
                 this.pret = 12;
             } else if (marime == TipMarime.Medie) {
@@ -103,6 +109,7 @@ public class Bautura {
             }
         }
         else {
+            this.stoc = 0;
             this.pret = 0; // Pretul default
         }
     }

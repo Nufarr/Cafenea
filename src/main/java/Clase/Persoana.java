@@ -41,6 +41,10 @@ public class Persoana {
         this.prenume = prenume;
     }
 
+    public String getNumeIntreg() {
+        return nume + " " + prenume;
+    }
+
     public String getEmail() {
         return email;
     }

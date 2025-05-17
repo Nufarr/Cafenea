@@ -13,15 +13,16 @@ public class Comanda {
     private StatusComanda status;
     private int pretTotal;
     private List<Bautura> bauturi;  // Lista de băuturi
-
+    private Client client;
+    private Angajat angajat;
 
     public Comanda() {
         contorIdComanda++;
-        this.idComanda=contorIdComanda;
-        this.oraRidicare = "";
+        this.idComanda = contorIdComanda;
+        this.oraRidicare = "12:00";
         this.status = StatusComanda.In_Asteptare;
         this.pretTotal = 0;
-        this.bauturi=new ArrayList<>();
+        this.bauturi = new ArrayList<>();
     }
 
     public Comanda(String oraRidicare, StatusComanda status) {
@@ -37,6 +38,18 @@ public class Comanda {
         return idComanda;
     }
 
+    public Client getClient() {
+        return client;
+    }
+    public void setClient(Client client) {
+        this.client = client;
+    }
+    public Angajat getAngajat() {
+        return angajat;
+    }
+    public void setAngajat(Angajat angajat) {
+        this.angajat = angajat;
+    }
 
     public String getOraRidicare() {
         return oraRidicare;
@@ -53,6 +66,7 @@ public class Comanda {
 
     // Metoda pentru adăugarea unei băuturi
     public void adaugaProdus(Bautura bautura) {
+
         pretTotal = pretTotal + bautura.getPret();
         this.bauturi.add(bautura);
     }
