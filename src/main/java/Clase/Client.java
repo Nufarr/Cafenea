@@ -98,11 +98,133 @@ public class Client extends Persoana {
         System.out.println("Cont creat pentru clientul: " + prenume + " " + nume);
     }
 
-    public void plaseazaComanda(Comanda comanda) {
-        numarComanda++;
-        istoricComenzi.add(comanda);
-        System.out.println("Comanda plasata cu succes pentru client-ul " + this.getNumeIntreg());
+    public Comanda plaseazaComanda(Scanner scanner) {
+        Comanda comanda = new Comanda();
+        Oferte oferta = new Oferte();
+        boolean ofertaAplicata = false;
+
+        System.out.print("Selectare ora pickup (Ex: 10:00): ");
+        String ora = scanner.nextLine();
+        while (!cafenea.esteDeschisaAcum(ora)) {
+            System.out.println("Cafeneaua este inchisa la aceasta ora.");
+            System.out.print("Selectare ora pickup in intervalul orar " + cafenea.getProgram() + ": ");
+            ora = scanner.nextLine();
+        }
+        comanda.setOraRidicare(ora);
+
+        while (true) {
+            System.out.println("\n=== MENIU COMANDA ===");
+            System.out.println("1. Adaug produs in meniu");
+            System.out.println("2. Elimin produs din meniu");
+            System.out.println("3. Adaug Oferta");
+            System.out.println("4. Elimin Oferta");
+            System.out.println("5. Vizualizeaza Meniu");
+            System.out.println("6. Vizualizeaza Cos Comanda");
+            System.out.println("0. Plaseaza Comanda");
+
+            System.out.print("Alege o opțiune: ");
+            String opt = scanner.nextLine();
+
+            switch (opt) {
+                case "1":
+                    Bautura bautura = alegeDinMeniu();
+                    System.out.println(bautura.getStoc());
+                    if (bautura != null) {
+                        if(bautura.getStoc() <= 0){
+                            System.out.println("Stoc insuficient pentru " + bautura.getTipBautura());
+                            System.out.println("Selectati alt produs");
+                            break;
+                        }
+                        comanda.adaugaProdus(bautura);
+                        comanda.afisare();
+                    }
+                    break;
+
+                case "2":
+                    comanda.afisare();
+                    if (comanda.getBauturi().isEmpty()) {
+                        System.out.println("Nu există băuturi în comandă pentru a fi eliminate.");
+                        break;
+                    }
+
+                    if (ofertaAplicata) comanda.eliminaOferta(oferta);
+
+                    ArrayList<Bautura> bauturi = comanda.getBauturi();
+                    for (int i = 0; i < bauturi.size(); i++) {
+                        System.out.println((i + 1) + ". " + bauturi.get(i));
+                    }
+
+                    System.out.print("Introdu numărul băuturii: ");
+                    try {
+                        int index = Integer.parseInt(scanner.nextLine()) - 1;
+                        if (index >= 0 && index < bauturi.size()) {
+                            comanda.eliminaProdus(bauturi.get(index));
+                            System.out.println("Băutura a fost eliminată.");
+                        } else {
+                            System.out.println("Index invalid.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Input invalid.");
+                    }
+
+                    if (ofertaAplicata) comanda.aplicaOferta(oferta);
+                    break;
+
+                case "3":
+                    if (ofertaAplicata) {
+                        System.out.println("O ofertă este deja aplicată.");
+                        break;
+                    }
+
+                    afiseazaOferte();
+                    if (oferte.isEmpty()) break;
+
+                    System.out.print("Alege indexul ofertei: ");
+                    try {
+                        int idx = Integer.parseInt(scanner.nextLine()) - 1;
+                        if (idx >= 0 && idx < oferte.size()) {
+                            oferta = oferte.get(idx);
+                            comanda.aplicaOferta(oferta);
+                            ofertaAplicata = true;
+                            System.out.println("Ofertă aplicată.");
+                        } else {
+                            System.out.println("Index invalid.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Input invalid.");
+                    }
+                    break;
+
+                case "4":
+                    if (!ofertaAplicata) {
+                        System.out.println("Nu există ofertă aplicată.");
+                        break;
+                    }
+                    comanda.eliminaOferta(oferta);
+                    ofertaAplicata = false;
+                    System.out.println("Ofertă eliminată.");
+                    break;
+
+                case "5":
+                    vizualizareMeniu();
+                    break;
+
+                case "6":
+                    comanda.afisare();
+                    break;
+
+                case "0":
+                    istoricComenzi.add(comanda);
+                    creeazaRezervare(ora);
+                    System.out.println("Comanda a fost plasată!");
+                    return comanda;
+
+                default:
+                    System.out.println("Opțiune invalidă.");
+            }
+        }
     }
+
 
     public void ridicaComanda() {
         if (numarComanda == 0) {

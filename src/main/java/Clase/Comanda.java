@@ -71,12 +71,14 @@ public class Comanda {
     // Metoda pentru adăugarea unei băuturi
     public void adaugaProdus(Bautura bautura) {
         pretTotal = pretTotal + bautura.getPret();
+        bautura.setStoc(bautura.getStoc() - 1);
         this.bauturi.add(bautura);
     }
 
     // Metoda pentru eliminarea unei băuturi
     public void eliminaProdus(Bautura bautura) {
         pretTotal = pretTotal - bautura.getPret();
+        bautura.setStoc(bautura.getStoc() + 1);
         this.bauturi.remove(bautura);
     }
 

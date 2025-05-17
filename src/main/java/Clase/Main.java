@@ -34,6 +34,7 @@ public class Main {
 
         ArrayList<Cafenea> cafenele = new ArrayList<>();
         ArrayList<Client> clienti = new ArrayList<>();
+        ArrayList<Comanda> comenzi = new ArrayList<>();
         cafenele.add(cafenea1);
         cafenele.add(cafenea2);
 
@@ -109,120 +110,23 @@ public class Main {
                                 client.afiseazaOferte();
                                 break;
                             case "3":
-                                Comanda comanda = new Comanda();
-                                Oferte oferta = new Oferte();
-                                System.out.print("Selectare ora pickup (Ex: 10:00): ");
-                                String ora = scanner.nextLine();
-                                while (!cafenea1.esteDeschisaAcum(ora)){
-                                    System.out.println("Cafeneaua este inchisa la aceasta ora");
-                                    System.out.print("Selectare ora pickup in intervalul orar " + client.getCafenea().getProgram() + ": ");
-                                    ora = scanner.nextLine();
-                                }
-                                comanda.setOraRidicare(ora);
-
-                                boolean ofertaAplicata = false;
-                                meniuComanda:
-                                while(true){
-                                    System.out.println("\n1. Adaug produs in meniu");
-                                    System.out.println("2. Elimin produs in meniu");
-                                    System.out.println("3. Adaug Oferta");
-                                    System.out.println("4. Elimin Oferta");
-                                    System.out.println("5. Vizualizeaza Meniu");
-                                    System.out.println("6. Vizualizeaza Cos Comanda");
-                                    System.out.println("0. Plaseaza Comanda");
-                                    String optiuneComanda = scanner.nextLine();
-                                    switch (optiuneComanda) {
-                                        case "1":
-                                            comanda.adaugaProdus(client.alegeDinMeniu());
-                                            comanda.afisare();
-                                            break;
-                                        case "2":
-                                            comanda.afisare();
-                                            if (comanda.getBauturi().isEmpty()) {
-                                                System.out.println("Nu există băuturi în comandă pentru a fi eliminate.");
-                                                break;
-                                            }
-                                            if(ofertaAplicata){
-                                                comanda.eliminaOferta(oferta);
-                                            }
-                                            System.out.println("Selectează băutura de eliminat:");
-                                            ArrayList<Bautura> bauturi = comanda.getBauturi();
-                                            for (int i = 0; i < bauturi.size(); i++) {
-                                                System.out.print("\n" + (i + 1) + ". ");
-                                                bauturi.get(i).afisare(); // presupune că metoda returnează descrierea băuturii
-                                            }
-                                            while(true) {
-                                                System.out.print("Introdu numărul băuturii: ");
-                                                String input = scanner.nextLine();
-
-                                                if (input.matches("\\d+")) {
-                                                    int index = Integer.parseInt(input) - 1;
-
-                                                    if (index >= 0 && index < bauturi.size()) {
-                                                        Bautura bauturaAleasa = bauturi.get(index);
-                                                        comanda.eliminaProdus(bauturaAleasa);
-                                                        System.out.println("Băutura a fost eliminată.");
-                                                        break;
-                                                    } else {
-                                                        System.out.println("Număr invalid. Nu există băutură cu acel index.");
-                                                    }
-                                                } else {
-                                                    System.out.println("Input invalid. Introdu doar cifre.");
-                                                }
-                                            }
-                                            if(ofertaAplicata){
-                                                comanda.aplicaOferta(oferta); //pentru a se pastra oferta o eliminam si o adaugam dupa ce eliminam produsul
-                                            }
-                                            comanda.afisare();
-                                            break;
-                                        case "3":
-                                            if(ofertaAplicata){
-                                                System.out.println("Nu se poate aplica mai mult de o oferta");
-                                                break;
-                                            }
-                                            client.afiseazaOferte();
-                                            System.out.println("Alege numarul ofertei pe care vrei sa o aplici: ");
-                                            while(true){
-                                                int indexOferta = Integer.parseInt(scanner.nextLine());
-                                                ArrayList<Oferte> listaOferte = client.getOferte();
-                                                if (indexOferta-1 >= 0 && indexOferta-1 < listaOferte.size()) {
-                                                    comanda.aplicaOferta(listaOferte.get(indexOferta - 1));
-                                                    oferta = listaOferte.get(indexOferta);
-                                                    ofertaAplicata = true;
-                                                    break;
-                                                } else {
-                                                    System.out.println("Ofertă inexistentă.");
-                                                }
-                                            }
-                                            break;
-                                        case "4":
-                                            if (!ofertaAplicata){
-                                                System.out.println("Nicio oferta de eliminat");
-                                                break;
-                                            }
-                                            client.afiseazaOferte();
-                                            comanda.eliminaOferta(oferta);
-                                            ofertaAplicata = false;
-                                            break;
-                                        case "5":
-                                            client.vizualizareMeniu();
-                                            break;
-                                        case "6":
-                                            comanda.afisare();
-                                            break;
-                                        case "0":
-                                            client.plaseazaComanda(comanda);
-                                            client.creeazaRezervare(ora);
-                                            break meniuclient;
-                                    }
-                                }
+                                  comenzi.add(client.plaseazaComanda(scanner));
+                                  break;
+                            default:
+                                break;
                         }
                     }
                 case "2":
-
+                    //TODO:
                     break;
+
+                case "3":
+                    break;
+
                 case "0":
                     return;
+                default:
+                    break;
             }
         }
 
