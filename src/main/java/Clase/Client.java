@@ -1,13 +1,12 @@
 package Clase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Client extends Persoana {
     private int numarComanda;
-    private List<String> istoricComenzi;
-    private List<Oferte> oferte;  // Lista de oferte
-    private List<Rezervare> rezervari;  // Lista de rezervări
+    private ArrayList<Comanda> istoricComenzi;
+    private ArrayList<Oferte> oferte;  // Lista de oferte
+    private ArrayList<Rezervare> rezervari;  // Lista de rezervări
 
     public Client(String nume, String prenume, String email, String telefon) {
         super(nume, prenume, email, telefon);
@@ -24,11 +23,11 @@ public class Client extends Persoana {
         this.numarComanda = numarComanda;
     }
 
-    public List<String> getIstoricComenzi() {
+    public ArrayList<Comanda> getIstoricComenzi() {
         return istoricComenzi;
     }
 
-    public void setIstoricComenzi(List<String> istoricComenzi) {
+    public void setIstoricComenzi(ArrayList<Comanda> istoricComenzi) {
         this.istoricComenzi = istoricComenzi;
     }
 
@@ -76,9 +75,10 @@ public class Client extends Persoana {
         System.out.println("Cont creat pentru clientul: " + prenume + " " + nume);
     }
 
-    public void plaseazaComanda(String descriereComanda) {
+    public void plaseazaComanda(Comanda comanda) {
         numarComanda++;
-        istoricComenzi.add("Comanda #" + numarComanda + ": " + descriereComanda);
+        comanda.setIdComanda(numarComanda);
+        istoricComenzi.add(comanda);
         System.out.println("Comanda plasata cu succes.");
     }
 
@@ -95,8 +95,8 @@ public class Client extends Persoana {
             System.out.println("Nu exista comenzi in istoric.");
         } else {
             System.out.println("Istoric comenzi pentru " + prenume + " " + nume + ":");
-            for (String comanda : istoricComenzi) {
-                System.out.println(comanda);
+            for (Comanda comanda : istoricComenzi) {
+                comanda.afisare();
             }
         }
     }

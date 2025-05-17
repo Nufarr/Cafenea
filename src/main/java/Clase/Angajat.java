@@ -1,17 +1,22 @@
 package Clase;
 
+import java.util.ArrayList;
+
+import Enum.StatusComanda;
 import Enum.TipFunctie;
 
 public class Angajat extends Persoana{
     private Float salariu;
     private Integer numarOreSapt;
     private TipFunctie functie;
+    private ArrayList<Comanda> comenziGestionate;
 
     public Angajat() {
         super(null, null, null, null);
         this.salariu = null;
         this.numarOreSapt = null;
         this.functie = null;
+        comenziGestionate = new ArrayList<>();
     }
 
     public Angajat(String nume, String prenume, String email, String telefon, Float salariu, Integer numarOreSapt, TipFunctie functie) {
@@ -19,6 +24,7 @@ public class Angajat extends Persoana{
         this.salariu = salariu;
         this.numarOreSapt = numarOreSapt;
         this.functie = functie;
+        comenziGestionate = new ArrayList<>();
     }
 
     public Float getSalariu() {
@@ -54,13 +60,11 @@ public class Angajat extends Persoana{
     }
 
 
-    // 1. Preluarea comenzii de la un client
-    // public void preluareComanda(Client client, Comanda comanda) {
-    //     comenziGestionate.add(comanda);
-    //     comanda.setStatus(StatusComanda.InAsteptare);
-    //     System.out.println("Comanda #" + comanda.getNumarComanda() + " a fost preluata de " + functie + ".");
-    //     client.notifica("Comanda ta a fost preluată de un angajat.");
-    // }
+    public void preluareComanda(Comanda comanda) {
+        comenziGestionate.add(comanda);
+        comanda.setStatus(StatusComanda.Preluata);
+        System.out.println("Comanda #" + comanda.getIdComanda() + " a fost preluata de " + functie + ".");
+    }
 
     // // 2. Încasarea sumei
     // public void incasareSuma(Client client, double suma) {
@@ -69,20 +73,21 @@ public class Angajat extends Persoana{
     //     client.notifica("Plata de " + suma + " RON a fost înregistrată.");
     // }
 
-    // // 3. Pregătirea comenzii
-    // public void pregatesteComanda(Comanda comanda) {
-    //     if (comenziGestionate.contains(comanda) && comanda.getStatus() == StatusComanda.InAsteptare) {
-    //         System.out.println("Comanda #" + comanda.getNumarComanda() + " este pregătită.");
-    //         comanda.setStatus(StatusComanda.Finalizata);
-    //     } else {
-    //         System.out.println("Comanda nu este în așteptare sau nu aparține acestui angajat.");
-    //     }
-    // }
+    // 3. Pregătirea comenzii
+    public void pregatireComanda(Comanda comanda) {
+        // Modifică statusul comenzii la "In_Preparare"
+        comanda.setStatus(StatusComanda.In_Pregatire);
+        System.out.println("Comanda #" + comanda.getIdComanda() + " este în pregătire.");
 
-    // // 4. Trimiterea unei notificări
-    // public void trimiteNotificare(Client client, String mesaj) {
-    //     System.out.println("Notificare trimisă clientului " + client.getNume() + ": " + mesaj);
-    //     client.notifica(mesaj);
-    // }
+        // Simulăm pregătirea comenzii
+        try {
+            Thread.sleep(2000);  // Întârziere de 2 secunde pentru a simula timpul de pregătire
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // După pregătirea comenzii, schimbăm statusul la "Finalizata"
+        comanda.finalizeazaComanda();
+    }
     
 }

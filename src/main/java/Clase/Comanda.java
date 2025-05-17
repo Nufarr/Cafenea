@@ -94,5 +94,5 @@ public class Comanda {
         pretTotal = pretInitial;
         System.out.println("Oferta a fost eliminată și prețul a fost restaurat la " + pretTotal);
     }
-
+    
 }
